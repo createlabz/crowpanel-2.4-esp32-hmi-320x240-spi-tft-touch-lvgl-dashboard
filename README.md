@@ -52,7 +52,7 @@ https://github.com/createlabz/lvgl
 - PlatformIO
 - MicroPython
 
-This project is **specifically configured for this device**.
+This project is **specifically using Arduino for this device**.
 
 ---
 
@@ -464,5 +464,6 @@ LVGL UI framework:
 https://github.com/createlabz/lvgl
 
 Project repository:
+
 
 https://github.com/createlabz/crowpanel-2.4-esp32-hmi-320x240-spi-tft-touch-lvgl-dashboard
