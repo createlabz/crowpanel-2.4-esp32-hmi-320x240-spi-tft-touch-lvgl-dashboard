@@ -125,7 +125,7 @@ This project uses a **modified LVGL Widgets UI**, so the default demo file must 
 Example path on my system:
 
 
-C:\Users\dev\Documents\Arduino\libraries\lvgl\src\demos\widgets\
+C:\Users\YourUser\Documents\Arduino\libraries\lvgl\src\demos\widgets\
 
 
 Inside this folder you will find:
@@ -165,7 +165,7 @@ lv_demo_widgets.c
 Paste the new file into the widgets directory:
 
 
-C:\Users\dev\Documents\Arduino\libraries\lvgl\src\demos\widgets\
+C:\Users\YourUser\Documents\Arduino\libraries\lvgl\src\demos\widgets\
 
 
 ---
@@ -459,5 +459,6 @@ LVGL UI framework:
 https://github.com/createlabz/lvgl
 
 Modified dashboard UI:
+
 
 https://github.com/createlabz/crowpanel-2.4-esp32-hmi-320x240-spi-tft-touch-lvgl-dashboard
