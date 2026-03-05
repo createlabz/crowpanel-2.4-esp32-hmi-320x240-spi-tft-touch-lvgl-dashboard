@@ -65,6 +65,18 @@ Used for measuring:
 
 ---
 
+# 🧰 Software Versions (Tested)
+
+| Component           | Version                        |
+| ------------------- | ------------------------------ |
+| Arduino IDE         | **2.3.7**                      |
+| ESP32 Board Package | **2.0.17 (Espressif Systems)** |
+| LVGL                | **8.3.11**                     |
+| TFT_eSPI            | **2.5.43 (Bodmer)**            |
+| DHT Sensor Library  | **Latest Version**             |
+
+---
+
 # 🔌 Wiring
 
 ## DHT11
@@ -462,3 +474,4 @@ Modified dashboard UI:
 
 
 https://github.com/createlabz/crowpanel-2.4-esp32-hmi-320x240-spi-tft-touch-lvgl-dashboard
+
