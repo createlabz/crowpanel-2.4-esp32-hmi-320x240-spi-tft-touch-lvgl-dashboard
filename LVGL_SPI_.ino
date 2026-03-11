@@ -26,12 +26,12 @@ extern "C" {
 TFT_eSPI tft = TFT_eSPI();
 
 /* ================= Screen Settings ================= */
-static const uint16_t screenWidth  = 480;
-static const uint16_t screenHeight = 320;
+static const uint16_t screenWidth  = 320;
+static const uint16_t screenHeight = 240;
 
 /* ================= LVGL Buffer ================= */
 static lv_disp_draw_buf_t draw_buf;
-static lv_color_t *buf1 = NULL;
+static lv_color_t buf1[screenWidth * 20];
 
 /* ================= LVGL Tick Timer ================= */
 hw_timer_t * lv_timer = NULL;
@@ -91,29 +91,26 @@ void setup()
   dht.begin();
 
   tft.init();
-  tft.setRotation(1);
+  tft.setRotation(3);
   tft.setSwapBytes(true);
 
   uint16_t calData[5] = { 292, 3607, 302, 3486, 7 };
   tft.setTouch(calData);
 
+  /* Display test */
+  tft.fillScreen(TFT_RED);
+  delay(500);
+  tft.fillScreen(TFT_GREEN);
+  delay(500);
+  tft.fillScreen(TFT_BLUE);
+  delay(500);
   tft.fillScreen(TFT_BLACK);
 
+  /* Initialize LVGL */
   lv_init();
 
-  /* Allocate FULL frame buffer in PSRAM */
-  buf1 = (lv_color_t *)heap_caps_malloc(
-      screenWidth * screenHeight * sizeof(lv_color_t),
-      MALLOC_CAP_SPIRAM
-  );
-
-  if (!buf1) {
-    Serial.println("PSRAM allocation failed!");
-    while (1);
-  }
-
   lv_disp_draw_buf_init(&draw_buf, buf1, NULL,
-                        screenWidth * screenHeight);
+                        screenWidth * 20);
 
   /* 1ms LVGL tick timer */
   lv_timer = timerBegin(0, 80, true);
@@ -145,6 +142,7 @@ void setup()
 void loop()
 {
   lv_timer_handler();
+  delay(5);
 
   /* ===== Read DHT11 every ~2 seconds ===== */
   static unsigned long lastRead = 0;
