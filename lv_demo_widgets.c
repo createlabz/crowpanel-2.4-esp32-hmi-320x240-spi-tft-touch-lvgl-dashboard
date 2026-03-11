@@ -140,6 +140,11 @@ static lv_timer_t * meter2_timer;
 
 void lv_demo_widgets(void)
 {
+
+        gpio_reset_pin((gpio_num_t)LED_PIN);
+    gpio_set_direction((gpio_num_t)LED_PIN, GPIO_MODE_OUTPUT);
+    gpio_set_level((gpio_num_t)LED_PIN, 0);
+
     if(LV_HOR_RES <= 320) disp_size = DISP_SMALL;
     else if(LV_HOR_RES < 720) disp_size = DISP_MEDIUM;
     else disp_size = DISP_LARGE;
@@ -258,9 +263,9 @@ lv_obj_t * t3 = lv_tabview_add_tab(tv, "TRENDS");
 void lv_demo_widgets_close(void)
 {
 
-       gpio_reset_pin((gpio_num_t)LED_PIN);
-    gpio_set_direction((gpio_num_t)LED_PIN, GPIO_MODE_OUTPUT);
-    gpio_set_level((gpio_num_t)LED_PIN, 0);
+gpio_reset_pin((gpio_num_t)LED_PIN);
+gpio_set_direction((gpio_num_t)LED_PIN, GPIO_MODE_OUTPUT);
+gpio_set_level((gpio_num_t)LED_PIN, 0);
 
     /*Delete all animation*/
     lv_anim_del(NULL, NULL);
@@ -309,19 +314,34 @@ static void dashboard_update_cb(lv_timer_t * t)
  *   STATIC FUNCTIONS
  **********************/
 
-
 static void bulb_event_cb(lv_event_t * e)
 {
     lv_obj_t * sw = lv_event_get_target(e);
 
-    if(lv_obj_has_state(sw, LV_STATE_CHECKED)) {
-        gpio_set_level((gpio_num_t)LED_PIN, 1);
-    } 
-    else {
-        gpio_set_level((gpio_num_t)LED_PIN, 0);
-    }
+    bool state = lv_obj_has_state(sw, LV_STATE_CHECKED);
+
+    gpio_set_level((gpio_num_t)LED_PIN, state ? 1 : 0);
 }
 
+
+static void bulb_button_cb(lv_event_t * e)
+{
+    static bool state = false;
+    state = !state;
+
+    gpio_set_level((gpio_num_t)LED_PIN, state);
+
+    lv_obj_t * btn = lv_event_get_target(e);
+    lv_obj_t * label = lv_obj_get_child(btn, 0);
+
+    if(state) {
+        lv_label_set_text(label, "Bulb ON");
+        lv_obj_set_style_bg_color(btn, lv_palette_main(LV_PALETTE_GREEN), 0);
+    } else {
+        lv_label_set_text(label, "Bulb OFF");
+        lv_obj_set_style_bg_color(btn, lv_palette_main(LV_PALETTE_RED), 0);
+    }
+}
 static void profile_create(lv_obj_t * parent)
 {
 
@@ -337,7 +357,7 @@ lv_label_set_text(bulb_title, "Light Control");
 
 lv_obj_t * bulb_btn = lv_btn_create(bulb_panel);
 lv_obj_set_size(bulb_btn, 140, 50);
-lv_obj_add_event_cb(bulb_btn, bulb_event_cb, LV_EVENT_CLICKED, NULL);
+lv_obj_add_event_cb(bulb_btn, bulb_button_cb, LV_EVENT_CLICKED, NULL);
 
 lv_obj_t * bulb_label = lv_label_create(bulb_btn);
 lv_label_set_text(bulb_label, "Bulb OFF");
@@ -549,7 +569,11 @@ lv_obj_add_style(hard_working_label, &style_text_muted, 0);
 // lv_obj_add_state(sw2, LV_STATE_CHECKED);
 
 lv_obj_t * sw2 = lv_switch_create(panel3);
-lv_obj_add_state(sw2, LV_STATE_CHECKED);
+
+/* Start switch OFF */
+lv_obj_clear_state(sw2, LV_STATE_CHECKED);
+
+/* Attach LED control event */
 lv_obj_add_event_cb(sw2, bulb_event_cb, LV_EVENT_VALUE_CHANGED, NULL);
 
     /* ===================== LAYOUT (GRID) ===================== */
