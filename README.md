@@ -11,7 +11,7 @@ The dashboard also allows **Bluetooth Serial monitoring** of the sensor data.
 
 ---
 
-# 📷 Project Overview
+## 📷 Project Overview
 
 The system displays:
 
@@ -28,14 +28,13 @@ https://github.com/createlabz/lvgl
 
 ---
 
-# 🖥 Hardware Used
+## 🖥 Hardware Used
 
-## Display / Controller
+### Display / Controller
 
 **CrowPanel 2.4" ESP32 HMI 320x240 SPI TFT LCD Touch Screen**
 
-### Features
-
+#### Features
 - ESP32 microcontroller
 - 2.4" TFT LCD display
 - 320×240 resolution
@@ -43,8 +42,7 @@ https://github.com/createlabz/lvgl
 - Resistive touchscreen
 - LVGL compatible
 
-### Compatible with
-
+#### Compatible with
 - Arduino
 - LVGL
 - ESPHome
@@ -56,18 +54,16 @@ This project is **specifically using Arduino for this device**.
 
 ---
 
-# 🔧 Sensor Used
+## 🔧 Sensor Used
 
-## DHT11
-
+### DHT11
 Used for measuring:
-
 - Temperature
 - Humidity
 
 ---
 
-# 🧰 Software Versions (Tested)
+## 🧰 Software Versions (Tested)
 
 | Component | Version |
 |----------|--------|
@@ -79,9 +75,9 @@ Used for measuring:
 
 ---
 
-# 🔌 Wiring
+## 🔌 Wiring
 
-## DHT11
+### DHT11
 
 | DHT11 Pin | ESP32 Pin |
 |----------|-----------|
@@ -89,9 +85,7 @@ Used for measuring:
 | GND | GND |
 | DATA | GPIO 32 |
 
----
-
-## Bulb / LED
+### Bulb / LED
 
 | Device | ESP32 |
 |-------|------|
@@ -99,11 +93,9 @@ Used for measuring:
 
 ---
 
-# 📚 Required Libraries
+## 📚 Required Libraries
 
-Install these libraries using **Arduino IDE Library Manager**.
-
-Required libraries:
+Install these libraries using **Arduino IDE Library Manager**:
 
 - LVGL
 - TFT_eSPI
@@ -112,7 +104,7 @@ Required libraries:
 
 ---
 
-# 📥 Install the LVGL Library
+## 📥 Install the LVGL Library
 
 Download the LVGL library used in this project:
 
@@ -120,17 +112,14 @@ https://github.com/createlabz/lvgl
 
 Extract the repository and place the **lvgl folder** inside your Arduino libraries directory.
 
-Example location:
-
-
-Documents/Arduino/libraries/lvgl
+Example location: Documents/Arduino/libraries/lvgl
 
 
 Restart **Arduino IDE** after installing the library.
 
 ---
 
-# ⚙ Configure TFT_eSPI for CrowPanel
+## ⚙ Configure TFT_eSPI for CrowPanel
 
 The CrowPanel display requires a **custom TFT_eSPI configuration**.
 
@@ -138,65 +127,33 @@ This repository already includes the correct configuration files.
 
 You must **replace the default TFT_eSPI configuration files**.
 
----
-
-## Step 1 — Locate TFT_eSPI Library
-
-Example path:
+### Step 1 — Locate TFT_eSPI Library
+Example path:  Documents/Arduino/libraries/TFT_eSPI/
 
 
-Documents/Arduino/libraries/TFT_eSPI/
+### Step 2 — Open the folder
+Inside the folder locate these files: 
+-User_Setup.h
+
+-User_Setup_Select.h
 
 
----
-
-## Step 2 — Open the folder
-
-Inside the folder locate these files:
-
-
-User_Setup.h
-User_Setup_Select.h
-
-
----
-
-## Step 3 — Delete the existing files
-
+### Step 3 — Delete the existing files
 Delete the default files:
 
+-User_Setup.h
 
-User_Setup.h
-User_Setup_Select.h
+-User_Setup_Select.h
 
-
----
-
-## Step 4 — Copy the new configuration files
-
-Download the files from this repository:
+Then paste them into: Documents/Arduino/libraries/TFT_eSPI/
 
 
-User_Setup.h
-User_Setup_Select.h
-
-
-Then paste them into:
-
-
-Documents/Arduino/libraries/TFT_eSPI/
-
-
----
-
-## Why This Is Needed
-
+### Why This Is Needed
 The **CrowPanel display uses specific SPI pins and touchscreen configuration**.
 
 The default TFT_eSPI configuration **will not work correctly**.
 
 Replacing these files ensures:
-
 - Correct display driver
 - Correct SPI pins
 - Working touchscreen
@@ -204,83 +161,31 @@ Replacing these files ensures:
 
 ---
 
-# 🔄 Replace the Default LVGL UI
+## 🔄 Replace the Default LVGL UI
 
 This project uses a **modified LVGL Widgets UI**, so the default demo file must be replaced.
 
----
+### Step 1 — Locate the widgets folder
+Example path: C:\Users\YOUR_USERNAME\Documents\Arduino\libraries\lvgl\src\demos\widgets\
 
-## Step 1 — Locate the widgets folder
-
-Example path:
-
-
-C:\Users\YOUR_USERNAME\Documents\Arduino\libraries\lvgl\src\demos\widgets\
+Inside this folder you will see: lv_demo_widgets.c
 
 
-Inside this folder you will see:
+### Step 2 — Delete the original file
+Delete: lv_demo_widgets.c
 
 
-lv_demo_widgets.c
+### Step 3 — Download the modified UI file
+Download it from this repository: lv_demo_widgets.c
 
 
----
-
-## Step 2 — Delete the original file
-
-Delete:
-
-
-lv_demo_widgets.c
+### Step 4 — Paste the new file
+Paste it into: Documents/Arduino/libraries/lvgl/src/demos/widgets/
 
 
 ---
 
-## Step 3 — Download the modified UI file
-
-Download it from this repository:
-
-
-lv_demo_widgets.c
-
-
----
-
-## Step 4 — Paste the new file
-
-Paste it into:
-
-
-Documents/Arduino/libraries/lvgl/src/demos/widgets/
-
-
----
-
-# 📱 Bluetooth Serial Monitoring
-
-The ESP32 broadcasts Bluetooth using the name:
-
-
-CrowPanel_Control
-
-
-You can connect using a **Bluetooth Serial Terminal** to view live sensor data.
-
-Example output:
-
-
-Temp: 26.3C Hum: 63%
-Temp: 26.5C Hum: 62%
-
-
-### Recommended Android Apps
-
-- Serial Bluetooth Terminal
-- Bluetooth Terminal HC-05
-
----
-
-# 🎛 Touch Calibration
+## 🎛 Touch Calibration
 
 Touch calibration is **already included in the code**.
 
@@ -290,180 +195,136 @@ Simply upload the code and the touchscreen will work.
 
 ---
 
-# 🚀 Upload Instructions
+## 🚀 Upload Instructions
 
 1. Open the `.ino` file in **Arduino IDE**
-2. Select board:
+2. Select board: **ESP32 Dev Module**
+3. Configure board settings:
 
+| Setting | Recommended Value |
+|---------|-------------------|
+| Upload Speed | 921600 |
+| CPU Frequency | 240MHz (WiFi/BT) |
+| Flash Frequency | 80MHz |
+| Flash Mode | QIO |
+| Flash Size | 4MB (32Mb) |
+| Partition Scheme | Default 4MB with spiffs |
+| Core Debug Level | None |
+| PSRAM | Disabled |
+| Arduino Runs On | Core 1 |
+| Arduino Handles | Core 1 |
 
-ESP32 Dev Module
-
-
-3. Connect the CrowPanel via USB
-4. Click **Upload**
+4. Connect the CrowPanel via USB
+5. Click **Upload**
 
 After uploading, the **LVGL dashboard will start automatically**.
 
 ---
 
-# 📊 UI Overview
+## 📱 Bluetooth Serial Monitoring
 
-## HOME Tab
+The ESP32 broadcasts Bluetooth using the name: CrowPanel_Control
 
+
+You can connect using a **Bluetooth Serial Terminal** to view live sensor data.
+
+Example output:
+Temp: 26.3C Hum: 63%
+
+Temp: 26.5C Hum: 62%
+
+
+### Recommended Android Apps
+- Serial Bluetooth Terminal
+- Bluetooth Terminal HC-05
+
+---
+
+## 📊 UI Overview
+
+### HOME Tab
 Displays:
-
 - Bulb ON/OFF control
 - Temperature gauge
 - Humidity gauge
 - Environmental dashboard
 
----
-
-## CHARTS Tab
-
+### CHARTS Tab
 Displays:
-
 - Temperature trend chart
 - Humidity trend chart
 - Air quality visualization
 
----
-
-## TRENDS Tab
-
+### TRENDS Tab
 Displays a **combined temperature and humidity chart**.
 
 ---
 
-# 💡 Bulb Control
+## 💡 Bulb Control
 
-The touchscreen button toggles:
+The touchscreen button toggles **GPIO 25**:
 
-
-GPIO 25
-
-
-Press button:
-
-
-Bulb ON
-
-
-Press again:
-
-
-Bulb OFF
-
+Press button: **Bulb ON**  
+Press again: **Bulb OFF**
 
 ---
 
-# ⚠️ Common Setup Problems and Solutions
+## ⚠️ Common Setup Problems and Solutions
 
-## LVGL Demo Not Compiling
+### LVGL Demo Not Compiling
 
-Error:
-
+**Error:** 
 
 #error Insufficient memory for lv_demo_widgets
 
-
-### Solution
-
-Open `lv_conf.h` and increase memory:
+**Solution:**
+Open `lv_conf.h` and increase memory: LV_MEM_SIZE (48 * 1024)
 
 
-LV_MEM_SIZE (48 * 1024)
+### Blank or White Screen
+
+**Cause:** Incorrect **TFT_eSPI configuration**.
+
+**Solution:** Make sure you replaced: User_Setup.h and User_Setup_Select.h
 
 
----
+### Touchscreen Not Responding
 
-## Blank or White Screen
+**Cause:** Incorrect touch configuration.
 
-Cause:
+**Solution:** Ensure the correct **TFT_eSPI setup files** are used.
 
-Incorrect **TFT_eSPI configuration**.
+### LVGL UI Not Appearing
 
-### Solution
+**Cause:** Modified UI file not copied.
 
-Make sure you replaced:
-
-
-User_Setup.h
-User_Setup_Select.h
+**Solution:** Verify that `lv_demo_widgets.c` is replaced inside: Arduino/libraries/lvgl/src/demos/widgets/
 
 
----
+### Bluetooth Not Showing
 
-## Touchscreen Not Responding
-
-Cause:
-
-Incorrect touch configuration.
-
-### Solution
-
-Ensure the correct **TFT_eSPI setup files** are used.
-
----
-
-## LVGL UI Not Appearing
-
-Cause:
-
-Modified UI file not copied.
-
-### Solution
-
-Verify that:
+Search for the Bluetooth device: CrowPanel_Control
 
 
-lv_demo_widgets.c
+### DHT11 Returning NaN
 
-
-is replaced inside:
-
-
-Arduino/libraries/lvgl/src/demos/widgets/
-
-
----
-
-## Bluetooth Not Showing
-
-Search for the Bluetooth device:
-
-
-CrowPanel_Control
-
-
----
-
-## DHT11 Returning NaN
-
-Example:
-
+**Example:** 
 
 Temp: nan Hum: nan
 
 
-Possible causes:
-
+**Possible causes:**
 - Incorrect wiring
 - Reading interval too fast
 
-### Solution
-
-Ensure sensor readings occur **every ≥ 2 seconds**.
+**Solution:** Ensure sensor readings occur **every ≥ 2 seconds**.
 
 ---
 
-# 📚 Credits
+## 📚 Credits
 
 LVGL UI framework:
-
 https://github.com/createlabz/lvgl
 
 Project repository:
-
-
 https://github.com/createlabz/crowpanel-2.4-esp32-hmi-320x240-spi-tft-touch-lvgl-dashboard
