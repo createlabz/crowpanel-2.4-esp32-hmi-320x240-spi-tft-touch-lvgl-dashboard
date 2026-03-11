@@ -65,8 +65,8 @@ void my_touchpad_read(lv_indev_drv_t *indev_driver,
   if (tft.getTouch(&x, &y, 40))
   {
     data->state = LV_INDEV_STATE_PR;
-    data->point.x = x;
-    data->point.y = y;
+  data->point.x = screenWidth - x;
+data->point.y = y;
   }
   else
   {
